@@ -4,7 +4,7 @@ import Defaults
 final class KeyTests: XCTestCase {
 
     func testGet() throws {
-        let defaults = try XCTUnwrap(UserDefaults(suiteName: .random))
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let keyString = String.random
         let key = UserDefaults.Key(keyString, default: "")
         let value = String.random
@@ -13,7 +13,7 @@ final class KeyTests: XCTestCase {
     }
 
     func testSet() throws {
-        let defaults = try XCTUnwrap(UserDefaults(suiteName: .random))
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let key = UserDefaults.Key(.random, default: "")
         let value = String.random
         defaults.set(value, for: key)
@@ -21,14 +21,14 @@ final class KeyTests: XCTestCase {
     }
 
     func testDefault() throws {
-        let defaults = try XCTUnwrap(UserDefaults(suiteName: .random))
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
         XCTAssertEqual(defaults.value(for: key), defaultValue)
     }
 
     func testRemove() throws {
-        let defaults = try XCTUnwrap(UserDefaults(suiteName: .random))
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let value = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
@@ -41,7 +41,7 @@ final class KeyTests: XCTestCase {
     }
 
     func testIncorrectType() throws {
-        let defaults = try XCTUnwrap(UserDefaults(suiteName: .random))
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let keyString = String.random
         let defaultValue = String.random
         let key = UserDefaults.Key(keyString, default: defaultValue)
