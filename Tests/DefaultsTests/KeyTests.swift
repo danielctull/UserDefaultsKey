@@ -1,10 +1,6 @@
 import XCTest
 import Defaults
 
-extension UserDefaults.Key where Value == Bool? {
-    static let optionalPreference = UserDefaults.Key<Bool?>("optionalPreference")
-}
-
 final class KeyTests: XCTestCase {
 
     func testGet() throws {
