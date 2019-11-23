@@ -1,6 +1,10 @@
 import XCTest
 import Defaults
 
+extension UserDefaults.Key where Value == Bool? {
+    static let optionalPreference = UserDefaults.Key<Bool?>("optionalPreference")
+}
+
 final class KeyTests: XCTestCase {
 
     func testGet() throws {
@@ -47,5 +51,23 @@ final class KeyTests: XCTestCase {
         let key = UserDefaults.Key(keyString, default: defaultValue)
         defaults.set(1.23, forKey: keyString)
         XCTAssertEqual(defaults.value(for: key), defaultValue)
+    }
+
+    func testNil() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let key = UserDefaults.Key<Int?>(.random)
+        XCTAssertNil(defaults.value(for: key))
+    }
+
+    func testSetNil() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let value = String.random
+        let key = UserDefaults.Key<String?>(.random)
+
+        defaults.set(value, for: key)
+        XCTAssertEqual(defaults.value(for: key), value)
+
+        defaults.set(nil, for: key)
+        XCTAssertNil(defaults.value(for: key))
     }
 }

@@ -19,6 +19,14 @@ extension UserDefaults {
             self.name = name
             self.default = `default`
         }
+
+        /// Creates a UserDefaults key for an optional value.
+        ///
+        /// - Parameters:
+        ///   - name: The name of the key.
+        public init<T>(_ name: String) where Value == Optional<T> {
+            self.init(name, default: nil)
+        }
     }
 }
 
@@ -42,6 +50,28 @@ extension UserDefaults {
     ///   - value: The value to store in the defaults database.
     ///   - key: The key with which to associate the value.
     public func set<Value>(_ value: Value, for key: Key<Value>) {
+        set(value, forKey: key.name)
+    }
+
+    /// Sets the value of the specified default key.
+    ///
+    /// The value parameter can be only property list objects. For arrays and
+    /// dictionaries, their contents must be property list objects.
+    ///
+    /// - Parameters:
+    ///   - value: The value to store in the defaults database.
+    ///   - key: The key with which to associate the value.
+    public func set<Value>(_ value: Value?, for key: Key<Value?>) {
+
+        // Note this is needed to prevent a crash in UserDefaults when setting a
+        // nil value. This will override the previous set method when the Key's
+        // Value is optional.
+
+        guard let value = value else {
+            removeValue(for: key)
+            return
+        }
+
         set(value, forKey: key.name)
     }
 

@@ -9,8 +9,10 @@ extension KeyTests {
         ("testDefault", testDefault),
         ("testGet", testGet),
         ("testIncorrectType", testIncorrectType),
+        ("testNil", testNil),
         ("testRemove", testRemove),
         ("testSet", testSet),
+        ("testSetNil", testSetNil),
     ]
 }
 

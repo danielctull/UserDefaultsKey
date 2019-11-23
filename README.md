@@ -30,3 +30,13 @@ UserDefaults.standard.set(true, for: .somePreference) // Works
 
 UserDefaults.standard.set("true", for: .somePreference) // Fails to compile
 ```
+
+## Optional Values
+
+Keys can be defined with optional values, and can either then fall back to a default value or nil. The initialiser that only takes the key name will return a key that falls back to nil. When declaring optional keys, you will also need to supply the type for Value as a generic parameter. 
+
+```swift
+extension UserDefaults.Key where Value == String? {
+    static let optionalPreference = UserDefaults.Key<String?>("optionalPreference")
+}
+```
