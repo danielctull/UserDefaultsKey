@@ -56,5 +56,14 @@ Because Swift infers the value type from the key, you don't need to specify it i
 ```swift
 struct Foo {
     @UserDefault(.somePreference) var somePreference: Bool
+    
+    func bar() {
+        
+        if somePreference {
+        
+        } else {
+        
+        }
+    }
 }
 ```
