@@ -40,3 +40,21 @@ extension UserDefaults.Key where Value == String? {
     static let optionalPreference = UserDefaults.Key<String?>("optionalPreference")
 }
 ```
+
+## Property Wrapper
+
+Once you have defined a key, you can pass it to the UserDefault property wrapper to allow succinct definitions of properties that are backed by user defaults.
+
+```swift
+struct Foo {
+    @UserDefault(.somePreference) var somePreference
+}
+```
+
+Because Swift infers the value type from the key, you don't need to specify it in the property definition. For clarity however, it may be desirable to do so.
+
+```swift
+struct Foo {
+    @UserDefault(.somePreference) var somePreference: Bool
+}
+```
