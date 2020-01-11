@@ -24,7 +24,7 @@ extension UserDefaults {
         ///
         /// - Parameters:
         ///   - name: The name of the key.
-        public init<T>(_ name: String) where Value == Optional<T> {
+        public init<T>(_ name: String) where Value == T? {
             self.init(name, default: nil)
         }
     }

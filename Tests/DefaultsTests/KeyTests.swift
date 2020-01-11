@@ -1,5 +1,6 @@
-import XCTest
+
 import Defaults
+import XCTest
 
 final class KeyTests: XCTestCase {
 
