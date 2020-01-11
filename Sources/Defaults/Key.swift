@@ -32,6 +32,11 @@ extension UserDefaults {
 
 extension UserDefaults {
 
+    public subscript<Value>(key: Key<Value>) -> Value {
+        get { value(for: key) }
+        set { set(newValue, for: key) }
+    }
+
     /// Returns the value associated with the specified key.
     ///
     /// - Parameter key: A key in the current user‘s defaults database.

@@ -21,6 +21,22 @@ final class KeyTests: XCTestCase {
         XCTAssertEqual(defaults.value(for: key), value)
     }
 
+    func testSubscriptGet() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let key = UserDefaults.Key(.random, default: "")
+        let value = String.random
+        defaults.set(value, for: key)
+        XCTAssertEqual(defaults[key], value)
+    }
+
+    func testSubscriptSet() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let key = UserDefaults.Key(.random, default: "")
+        let value = String.random
+        defaults[key] = value
+        XCTAssertEqual(defaults[key], value)
+    }
+
     func testDefault() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random

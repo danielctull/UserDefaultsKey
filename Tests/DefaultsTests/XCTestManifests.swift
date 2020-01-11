@@ -13,6 +13,8 @@ extension KeyTests {
         ("testRemove", testRemove),
         ("testSet", testSet),
         ("testSetNil", testSetNil),
+        ("testSubscriptGet", testSubscriptGet),
+        ("testSubscriptSet", testSubscriptSet),
     ]
 }
 

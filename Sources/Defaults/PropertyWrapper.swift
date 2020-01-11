@@ -22,7 +22,7 @@ public struct UserDefault<Value> {
 
     /// The value stored in userd defaults for the given key.
     public var wrappedValue: Value {
-        get { defaults.value(for: key) }
-        set { defaults.set(newValue, for: key) }
+        get { defaults[key] }
+        set { defaults[key] = newValue }
     }
 }
