@@ -3,12 +3,12 @@
 import PackageDescription
 
 let package = Package(
-    name: "Defaults",
+    name: "UserDefaultsKey",
     products: [
-        .library(name: "Defaults", targets: ["Defaults"]),
+        .library(name: "UserDefaultsKey", targets: ["UserDefaultsKey"]),
     ],
     targets: [
-        .target(name: "Defaults"),
-        .testTarget(name: "DefaultsTests", dependencies: ["Defaults"]),
+        .target(name: "UserDefaultsKey"),
+        .testTarget(name: "UserDefaultsKeyTests", dependencies: ["UserDefaultsKey"]),
     ]
 )

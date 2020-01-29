@@ -1,32 +1,47 @@
 
-import Defaults
+import UserDefaultsKey
 import XCTest
 
-final class PropertyWrapperTests: XCTestCase {
+final class KeyTests: XCTestCase {
 
     func testGet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key(.random, default: "")
-        let userDefault = UserDefault(key, defaults: defaults)
+        let keyString = String.random
+        let key = UserDefaults.Key(keyString, default: "")
         let value = String.random
-        defaults.set(value, for: key)
-        XCTAssertEqual(userDefault.wrappedValue, value)
+        defaults.set(value, forKey: keyString)
+        XCTAssertEqual(defaults.value(for: key), value)
     }
 
     func testSet() throws {
-        let defaults = try Unwrap(UserDefaults(suiteName: UUID().uuidString))
-        let key = UserDefaults.Key(UUID().uuidString, default: "")
-        var userDefault = UserDefault(key, defaults: defaults)
-        userDefault.wrappedValue = "value"
-        XCTAssertEqual(defaults.value(for: key), "value")
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let key = UserDefaults.Key(.random, default: "")
+        let value = String.random
+        defaults.set(value, for: key)
+        XCTAssertEqual(defaults.value(for: key), value)
+    }
+
+    func testSubscriptGet() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let key = UserDefaults.Key(.random, default: "")
+        let value = String.random
+        defaults.set(value, for: key)
+        XCTAssertEqual(defaults[key], value)
+    }
+
+    func testSubscriptSet() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let key = UserDefaults.Key(.random, default: "")
+        let value = String.random
+        defaults[key] = value
+        XCTAssertEqual(defaults[key], value)
     }
 
     func testDefault() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
-        let userDefault = UserDefault(key, defaults: defaults)
-        XCTAssertEqual(userDefault.wrappedValue, defaultValue)
+        XCTAssertEqual(defaults.value(for: key), defaultValue)
     }
 
     func testRemove() throws {
@@ -34,13 +49,12 @@ final class PropertyWrapperTests: XCTestCase {
         let defaultValue = String.random
         let value = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
-        let userDefault = UserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
-        XCTAssertEqual(userDefault.wrappedValue, value)
+        XCTAssertEqual(defaults.value(for: key), value)
 
         defaults.removeValue(for: key)
-        XCTAssertEqual(userDefault.wrappedValue, defaultValue)
+        XCTAssertEqual(defaults.value(for: key), defaultValue)
     }
 
     func testIncorrectType() throws {
@@ -48,28 +62,25 @@ final class PropertyWrapperTests: XCTestCase {
         let keyString = String.random
         let defaultValue = String.random
         let key = UserDefaults.Key(keyString, default: defaultValue)
-        let userDefault = UserDefault(key, defaults: defaults)
         defaults.set(1.23, forKey: keyString)
-        XCTAssertEqual(userDefault.wrappedValue, defaultValue)
+        XCTAssertEqual(defaults.value(for: key), defaultValue)
     }
 
     func testNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let key = UserDefaults.Key<Int?>(.random)
-        let userDefault = UserDefault(key, defaults: defaults)
-        XCTAssertNil(userDefault.wrappedValue)
+        XCTAssertNil(defaults.value(for: key))
     }
 
     func testSetNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let value = String.random
         let key = UserDefaults.Key<String?>(.random)
-        let userDefault = UserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
-        XCTAssertEqual(userDefault.wrappedValue, value)
+        XCTAssertEqual(defaults.value(for: key), value)
 
         defaults.set(nil, for: key)
-        XCTAssertNil(userDefault.wrappedValue)
+        XCTAssertNil(defaults.value(for: key))
     }
 }
