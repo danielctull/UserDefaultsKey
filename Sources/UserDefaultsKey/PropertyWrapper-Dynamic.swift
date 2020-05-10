@@ -10,7 +10,7 @@ private final class Observable<Value>: ObservableObject {
 
     let objectWillChange: ObservableObjectPublisher
     let defaults: UserDefaults
-    let key: UserDefaults.Key<Value>
+    let key: UserDefaultsKey<Value>
     var observation: KeyValueObservation<Value>
 
     var value: Value {
@@ -18,7 +18,7 @@ private final class Observable<Value>: ObservableObject {
         set { defaults[key] = newValue }
     }
 
-    init(defaults: UserDefaults, key: UserDefaults.Key<Value>) {
+    init(defaults: UserDefaults, key: UserDefaultsKey<Value>) {
         let objectWillChange = ObservableObjectPublisher()
         self.defaults = defaults
         self.key = key
@@ -40,7 +40,7 @@ private final class Observable<Value>: ObservableObject {
 public struct UserDefault<Value>: DynamicProperty {
 
     let defaults: UserDefaults
-    let key: UserDefaults.Key<Value>
+    let key: UserDefaultsKey<Value>
     @ObservedObject private var observable: Observable<Value>
 
     /// Creates a dynamic UserDefault property wrapper to access the value for
@@ -49,7 +49,7 @@ public struct UserDefault<Value>: DynamicProperty {
     /// - Parameters:
     ///   - key: The key for the desired value
     ///   - defaults: The user defaults storage to access.
-    public init(_ key: UserDefaults.Key<Value>, defaults: UserDefaults = .standard) {
+    public init(_ key: UserDefaultsKey<Value>, defaults: UserDefaults = .standard) {
         self.key = key
         self.defaults = defaults
         observable = Observable(defaults: defaults, key: key)

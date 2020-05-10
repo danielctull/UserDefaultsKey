@@ -7,7 +7,7 @@ final class PropertyWrapperTests: XCTestCase {
 
     func testGet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key(.random, default: "")
+        let key = UserDefaultsKey(.random, default: "")
         let userDefault = UserDefault(key, defaults: defaults)
         let value = String.random
         defaults.set(value, for: key)
@@ -16,7 +16,7 @@ final class PropertyWrapperTests: XCTestCase {
 
     func testSet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: UUID().uuidString))
-        let key = UserDefaults.Key(UUID().uuidString, default: "")
+        let key = UserDefaultsKey(UUID().uuidString, default: "")
         var userDefault = UserDefault(key, defaults: defaults)
         userDefault.wrappedValue = "value"
         XCTAssertEqual(defaults.value(for: key), "value")
@@ -25,7 +25,7 @@ final class PropertyWrapperTests: XCTestCase {
     func testDefault() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
-        let key = UserDefaults.Key(.random, default: defaultValue)
+        let key = UserDefaultsKey(.random, default: defaultValue)
         let userDefault = UserDefault(key, defaults: defaults)
         XCTAssertEqual(userDefault.wrappedValue, defaultValue)
     }
@@ -34,7 +34,7 @@ final class PropertyWrapperTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let value = String.random
-        let key = UserDefaults.Key(.random, default: defaultValue)
+        let key = UserDefaultsKey(.random, default: defaultValue)
         let userDefault = UserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
@@ -48,7 +48,7 @@ final class PropertyWrapperTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let keyString = String.random
         let defaultValue = String.random
-        let key = UserDefaults.Key(keyString, default: defaultValue)
+        let key = UserDefaultsKey(keyString, default: defaultValue)
         let userDefault = UserDefault(key, defaults: defaults)
         defaults.set(1.23, forKey: keyString)
         XCTAssertEqual(userDefault.wrappedValue, defaultValue)
@@ -56,7 +56,7 @@ final class PropertyWrapperTests: XCTestCase {
 
     func testNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key<Int?>(.random)
+        let key = UserDefaultsKey<Int?>(.random)
         let userDefault = UserDefault(key, defaults: defaults)
         XCTAssertNil(userDefault.wrappedValue)
     }
@@ -64,7 +64,7 @@ final class PropertyWrapperTests: XCTestCase {
     func testSetNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let value = String.random
-        let key = UserDefaults.Key<String?>(.random)
+        let key = UserDefaultsKey<String?>(.random)
         let userDefault = UserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)

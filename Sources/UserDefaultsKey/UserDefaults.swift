@@ -3,7 +3,7 @@ import Foundation
 
 extension UserDefaults {
 
-    public subscript<Value>(key: Key<Value>) -> Value {
+    public subscript<Value>(key: UserDefaultsKey<Value>) -> Value {
         get { value(for: key) }
         set { set(newValue, for: key) }
     }
@@ -13,7 +13,7 @@ extension UserDefaults {
     /// - Parameter key: A key in the current user‘s defaults database.
     /// - Returns: The value associated with the specified key, or the key's
     ///            default if the value was not found.
-    public func value<Value>(for key: Key<Value>) -> Value {
+    public func value<Value>(for key: UserDefaultsKey<Value>) -> Value {
         object(forKey: key.name) as? Value ?? key.default
     }
 
@@ -25,7 +25,7 @@ extension UserDefaults {
     /// - Parameters:
     ///   - value: The value to store in the defaults database.
     ///   - key: The key with which to associate the value.
-    public func set<Value>(_ value: Value, for key: Key<Value>) {
+    public func set<Value>(_ value: Value, for key: UserDefaultsKey<Value>) {
         set(value, forKey: key.name)
     }
 
@@ -37,7 +37,7 @@ extension UserDefaults {
     /// - Parameters:
     ///   - value: The value to store in the defaults database.
     ///   - key: The key with which to associate the value.
-    public func set<Value>(_ value: Value?, for key: Key<Value?>) {
+    public func set<Value>(_ value: Value?, for key: UserDefaultsKey<Value?>) {
 
         // Note this is needed to prevent a crash in UserDefaults when setting a
         // nil value. This will override the previous set method when the Key's
@@ -54,7 +54,7 @@ extension UserDefaults {
     /// Removes the value of the specified key.
     ///
     /// - Parameter key: The key whose value you want to remove.
-    public func removeValue<Value>(for key: Key<Value>) {
+    public func removeValue<Value>(for key: UserDefaultsKey<Value>) {
         removeObject(forKey: key.name)
     }
 }

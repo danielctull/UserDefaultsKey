@@ -8,7 +8,7 @@ import Foundation
 public struct UserDefault<Value> {
 
     private let defaults: UserDefaults
-    private let key: UserDefaults.Key<Value>
+    private let key: UserDefaultsKey<Value>
 
     /// Creates a static UserDefault property wrapper to access the value for
     /// the given key. The value doesn't automatically update upon changes to
@@ -17,7 +17,7 @@ public struct UserDefault<Value> {
     /// - Parameters:
     ///   - key: The key for the desired value
     ///   - defaults: The user defaults storage to access.
-    public init(_ key: UserDefaults.Key<Value>,
+    public init(_ key: UserDefaultsKey<Value>,
                 defaults: UserDefaults = .standard) {
         self.key = key
         self.defaults = defaults

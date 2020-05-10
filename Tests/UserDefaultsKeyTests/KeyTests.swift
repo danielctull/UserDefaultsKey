@@ -7,7 +7,7 @@ final class KeyTests: XCTestCase {
     func testGet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let keyString = String.random
-        let key = UserDefaults.Key(keyString, default: "")
+        let key = UserDefaultsKey(keyString, default: "")
         let value = String.random
         defaults.set(value, forKey: keyString)
         XCTAssertEqual(defaults.value(for: key), value)
@@ -15,7 +15,7 @@ final class KeyTests: XCTestCase {
 
     func testSet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key(.random, default: "")
+        let key = UserDefaultsKey(.random, default: "")
         let value = String.random
         defaults.set(value, for: key)
         XCTAssertEqual(defaults.value(for: key), value)
@@ -23,7 +23,7 @@ final class KeyTests: XCTestCase {
 
     func testSubscriptGet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key(.random, default: "")
+        let key = UserDefaultsKey(.random, default: "")
         let value = String.random
         defaults.set(value, for: key)
         XCTAssertEqual(defaults[key], value)
@@ -31,7 +31,7 @@ final class KeyTests: XCTestCase {
 
     func testSubscriptSet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key(.random, default: "")
+        let key = UserDefaultsKey(.random, default: "")
         let value = String.random
         defaults[key] = value
         XCTAssertEqual(defaults[key], value)
@@ -40,7 +40,7 @@ final class KeyTests: XCTestCase {
     func testDefault() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
-        let key = UserDefaults.Key(.random, default: defaultValue)
+        let key = UserDefaultsKey(.random, default: defaultValue)
         XCTAssertEqual(defaults.value(for: key), defaultValue)
     }
 
@@ -48,7 +48,7 @@ final class KeyTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let value = String.random
-        let key = UserDefaults.Key(.random, default: defaultValue)
+        let key = UserDefaultsKey(.random, default: defaultValue)
 
         defaults.set(value, for: key)
         XCTAssertEqual(defaults.value(for: key), value)
@@ -61,21 +61,21 @@ final class KeyTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let keyString = String.random
         let defaultValue = String.random
-        let key = UserDefaults.Key(keyString, default: defaultValue)
+        let key = UserDefaultsKey(keyString, default: defaultValue)
         defaults.set(1.23, forKey: keyString)
         XCTAssertEqual(defaults.value(for: key), defaultValue)
     }
 
     func testNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
-        let key = UserDefaults.Key<Int?>(.random)
+        let key = UserDefaultsKey<Int?>(.random)
         XCTAssertNil(defaults.value(for: key))
     }
 
     func testSetNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let value = String.random
-        let key = UserDefaults.Key<String?>(.random)
+        let key = UserDefaultsKey<String?>(.random)
 
         defaults.set(value, for: key)
         XCTAssertEqual(defaults.value(for: key), value)
