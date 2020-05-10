@@ -39,7 +39,9 @@ private final class Observable<Value>: ObservableObject {
 /// This should not be used directly, instead use the typealias UserDefault.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @propertyWrapper
+// swiftlint:disable type_name
 public struct _DynamicUserDefault<Value>: DynamicProperty {
+// swiftlint:enable type_name
 
     let defaults: UserDefaults
     let key: UserDefaults.Key<Value>

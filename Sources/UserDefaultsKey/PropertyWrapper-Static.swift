@@ -5,7 +5,9 @@ import Foundation
 ///
 /// This should not be used directly, instead use the typealias UserDefault.
 @propertyWrapper
+// swiftlint:disable type_name
 public struct _StaticUserDefault<Value> {
+// swiftlint:enable type_name
 
     private let defaults: UserDefaults
     private let key: UserDefaults.Key<Value>
