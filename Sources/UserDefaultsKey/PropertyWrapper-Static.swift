@@ -1,15 +1,16 @@
 
 import Foundation
 
-/// A property wrappy for a value in user defaults.
+/// A property wrapper for a value in user defaults.
 @propertyWrapper
-public struct UserDefault<Value> {
+public struct StaticUserDefault<Value> {
 
     private let defaults: UserDefaults
     private let key: UserDefaults.Key<Value>
 
-    /// Creates a UserDefault property wrapper to access the value for the given
-    /// key.
+    /// Creates a static UserDefault property wrapper to access the value for
+    /// the given key. The value doesn't automatically update upon changes to
+    /// the user defaults.
     ///
     /// - Parameters:
     ///   - key: The key for the desired value
