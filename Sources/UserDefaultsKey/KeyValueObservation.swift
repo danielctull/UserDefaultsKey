@@ -49,6 +49,8 @@ final class KeyValueObservation<Value>: NSObject {
         object?.removeObserver(self, forKeyPath: keyPath, context: nil)
     }
 
+    // swiftlint:disable block_based_kvo
+    // swiftlint:disable discouraged_optional_collection
     override func observeValue(
         forKeyPath keyPath: String?,
         of object: Any?,
@@ -59,6 +61,8 @@ final class KeyValueObservation<Value>: NSObject {
         guard let dictionary = dictionary else { return }
         handler(change(for: dictionary))
     }
+    // swiftlint:enable discouraged_optional_collection
+    // swiftlint:enable block_based_kvo
 
     private func change(for values: [NSKeyValueChangeKey: Any]) -> Change {
         let old = values[.oldKey] as? Value ?? `default`
