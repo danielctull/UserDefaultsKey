@@ -2,12 +2,13 @@
 import UserDefaultsKey
 import XCTest
 
-final class StaticPropertyWrapperTests: XCTestCase {
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+final class PropertyWrapperTests: XCTestCase {
 
     func testGet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let key = UserDefaults.Key(.random, default: "")
-        let userDefault = _StaticUserDefault(key, defaults: defaults)
+        let userDefault = UserDefault(key, defaults: defaults)
         let value = String.random
         defaults.set(value, for: key)
         XCTAssertEqual(userDefault.wrappedValue, value)
@@ -16,7 +17,7 @@ final class StaticPropertyWrapperTests: XCTestCase {
     func testSet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: UUID().uuidString))
         let key = UserDefaults.Key(UUID().uuidString, default: "")
-        var userDefault = _StaticUserDefault(key, defaults: defaults)
+        var userDefault = UserDefault(key, defaults: defaults)
         userDefault.wrappedValue = "value"
         XCTAssertEqual(defaults.value(for: key), "value")
     }
@@ -25,7 +26,7 @@ final class StaticPropertyWrapperTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
-        let userDefault = _StaticUserDefault(key, defaults: defaults)
+        let userDefault = UserDefault(key, defaults: defaults)
         XCTAssertEqual(userDefault.wrappedValue, defaultValue)
     }
 
@@ -34,7 +35,7 @@ final class StaticPropertyWrapperTests: XCTestCase {
         let defaultValue = String.random
         let value = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
-        let userDefault = _StaticUserDefault(key, defaults: defaults)
+        let userDefault = UserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
         XCTAssertEqual(userDefault.wrappedValue, value)
@@ -48,7 +49,7 @@ final class StaticPropertyWrapperTests: XCTestCase {
         let keyString = String.random
         let defaultValue = String.random
         let key = UserDefaults.Key(keyString, default: defaultValue)
-        let userDefault = _StaticUserDefault(key, defaults: defaults)
+        let userDefault = UserDefault(key, defaults: defaults)
         defaults.set(1.23, forKey: keyString)
         XCTAssertEqual(userDefault.wrappedValue, defaultValue)
     }
@@ -56,7 +57,7 @@ final class StaticPropertyWrapperTests: XCTestCase {
     func testNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let key = UserDefaults.Key<Int?>(.random)
-        let userDefault = _StaticUserDefault(key, defaults: defaults)
+        let userDefault = UserDefault(key, defaults: defaults)
         XCTAssertNil(userDefault.wrappedValue)
     }
 
@@ -64,7 +65,7 @@ final class StaticPropertyWrapperTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let value = String.random
         let key = UserDefaults.Key<String?>(.random)
-        let userDefault = _StaticUserDefault(key, defaults: defaults)
+        let userDefault = UserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
         XCTAssertEqual(userDefault.wrappedValue, value)

@@ -1,13 +1,11 @@
 
+#if !(canImport(Combine) && canImport(SwiftUI))
+
 import Foundation
 
 /// A property wrapper for a value in user defaults.
-///
-/// This should not be used directly, instead use the typealias UserDefault.
 @propertyWrapper
-// swiftlint:disable type_name
-public struct _StaticUserDefault<Value> {
-// swiftlint:enable type_name
+public struct UserDefault<Value> {
 
     private let defaults: UserDefaults
     private let key: UserDefaults.Key<Value>
@@ -31,3 +29,5 @@ public struct _StaticUserDefault<Value> {
         set { defaults[key] = newValue }
     }
 }
+
+#endif
