@@ -10,7 +10,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
     func testGet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let key = UserDefaults.Key(.random, default: "")
-        let userDefault = DynamicUserDefault(key, defaults: defaults)
+        let userDefault = _DynamicUserDefault(key, defaults: defaults)
         let value = String.random
         defaults.set(value, for: key)
         XCTAssertEqual(userDefault.wrappedValue, value)
@@ -19,7 +19,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
     func testSet() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: UUID().uuidString))
         let key = UserDefaults.Key(UUID().uuidString, default: "")
-        var userDefault = DynamicUserDefault(key, defaults: defaults)
+        var userDefault = _DynamicUserDefault(key, defaults: defaults)
         userDefault.wrappedValue = "value"
         XCTAssertEqual(defaults.value(for: key), "value")
     }
@@ -28,7 +28,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let defaultValue = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
-        let userDefault = DynamicUserDefault(key, defaults: defaults)
+        let userDefault = _DynamicUserDefault(key, defaults: defaults)
         XCTAssertEqual(userDefault.wrappedValue, defaultValue)
     }
 
@@ -37,7 +37,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
         let defaultValue = String.random
         let value = String.random
         let key = UserDefaults.Key(.random, default: defaultValue)
-        let userDefault = DynamicUserDefault(key, defaults: defaults)
+        let userDefault = _DynamicUserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
         XCTAssertEqual(userDefault.wrappedValue, value)
@@ -51,7 +51,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
         let keyString = String.random
         let defaultValue = String.random
         let key = UserDefaults.Key(keyString, default: defaultValue)
-        let userDefault = DynamicUserDefault(key, defaults: defaults)
+        let userDefault = _DynamicUserDefault(key, defaults: defaults)
         defaults.set(1.23, forKey: keyString)
         XCTAssertEqual(userDefault.wrappedValue, defaultValue)
     }
@@ -59,7 +59,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
     func testNil() throws {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let key = UserDefaults.Key<Int?>(.random)
-        let userDefault = DynamicUserDefault(key, defaults: defaults)
+        let userDefault = _DynamicUserDefault(key, defaults: defaults)
         XCTAssertNil(userDefault.wrappedValue)
     }
 
@@ -67,7 +67,7 @@ final class DynamicPropertyWrapperTests: XCTestCase {
         let defaults = try Unwrap(UserDefaults(suiteName: .random))
         let value = String.random
         let key = UserDefaults.Key<String?>(.random)
-        let userDefault = DynamicUserDefault(key, defaults: defaults)
+        let userDefault = _DynamicUserDefault(key, defaults: defaults)
 
         defaults.set(value, for: key)
         XCTAssertEqual(userDefault.wrappedValue, value)

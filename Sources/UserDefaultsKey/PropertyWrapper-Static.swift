@@ -2,8 +2,10 @@
 import Foundation
 
 /// A property wrapper for a value in user defaults.
+///
+/// This should not be used directly, instead use the typealias UserDefault.
 @propertyWrapper
-public struct StaticUserDefault<Value> {
+public struct _StaticUserDefault<Value> {
 
     private let defaults: UserDefaults
     private let key: UserDefaults.Key<Value>

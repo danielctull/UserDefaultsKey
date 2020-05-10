@@ -34,9 +34,12 @@ private final class Observable<Value>: ObservableObject {
     }
 }
 
+/// A property wrapper for a value in user defaults.
+///
+/// This should not be used directly, instead use the typealias UserDefault.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @propertyWrapper
-public struct DynamicUserDefault<Value>: DynamicProperty {
+public struct _DynamicUserDefault<Value>: DynamicProperty {
 
     let defaults: UserDefaults
     let key: UserDefaults.Key<Value>
