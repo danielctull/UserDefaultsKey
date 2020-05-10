@@ -55,7 +55,7 @@ public struct UserDefault<Value>: DynamicProperty {
         observable = Observable(defaults: defaults, key: key)
     }
 
-    /// The value stored in userd defaults for the given key.
+    /// The value stored in user defaults for the given key.
     public var wrappedValue: Value {
         get { observable.value }
         set { observable.value = newValue }
