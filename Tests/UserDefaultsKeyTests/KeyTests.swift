@@ -1,4 +1,5 @@
 
+import Foundation
 import UserDefaultsKey
 import XCTest
 
@@ -11,6 +12,17 @@ final class KeyTests: XCTestCase {
         let key = UserDefaultsKey(keyString, default: defaultValue)
         XCTAssertEqual(defaults.value(for: key), defaultValue)
         let value = String.random
+        defaults.set(value, forKey: keyString)
+        XCTAssertEqual(defaults.value(for: key), value)
+    }
+
+    func testURLGet() throws {
+        let defaults = try Unwrap(UserDefaults(suiteName: .random))
+        let keyString = String.random
+        let defaultValue = try Unwrap(URL(string: "http://example.com"))
+        let key = UserDefaultsKey(keyString, default: defaultValue)
+        XCTAssertEqual(defaults.value(for: key), defaultValue)
+        let value = try Unwrap(URL(string: "https://danieltull.co.uk"))
         defaults.set(value, forKey: keyString)
         XCTAssertEqual(defaults.value(for: key), value)
     }

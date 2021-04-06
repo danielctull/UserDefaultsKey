@@ -17,6 +17,15 @@ extension UserDefaults {
         object(forKey: key.name) as? Value ?? key.default
     }
 
+    /// Returns the url associated with the specified key.
+    ///
+    /// - Parameter key: A key in the current user‘s defaults database.
+    /// - Returns: The url associated with the specified key, or the key's
+    ///            default if the value was not found.
+    public func value(for key: UserDefaultsKey<URL>) -> URL {
+        url(forKey: key.name) ?? key.default
+    }
+
     /// Sets the value of the specified default key.
     ///
     /// The value parameter can be only property list objects. For arrays and
